@@ -134,6 +134,12 @@ LOGIN_REDIRECT_URL = reverse_lazy('student_course_list')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
+TEMPLATE_DIRS = (
+    os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/'),
+)
+
+
+
 CACHES = {
     'default' : {
         'BACKEND' : 'django.core.cache.backends.memcached.MemcachedCache',
@@ -154,3 +160,12 @@ REST_FRAMEWORK = {
 # Channels config
 
 ASGI_APPLICATION = 'educa.routing.application'
+
+CHANNEL_LAYERS = {
+    'default' : {
+        'BACKEND':'channels_redis.core.RedisChannelLayer',
+        'CONFIG' : {
+            'hosts' : [('127.0.0.1', 6379)],
+        },
+    },
+}
